@@ -24,7 +24,13 @@ provider:
   name: aws
   runtime: nodejs12.x
   lambdaHashingVersion: 20201221
-
+  apiGateway:
+    shouldStartNameWithService: true
+  stage: ${opt:stage,'dev'}
+  environment:
+    #connection_file: connection.${opt:stage, self:provider.stage, 'dev'}.json
+    #MYSQL_HOST: ${file(configuration/${self:provider.environment.connection_file}):host}
+    #MYSQL_USER: ${file(configuration/${self:provider.environment.connection_file}):user}
 # you can overwrite defaults here
 #  stage: dev
 #  region: us-east-1
@@ -60,12 +66,12 @@ provider:
 
 functions:
   hello:
-    handler: handler.hello
+    handler: handler.mutant
     timeout: 120
     events:
       - http:
-          path: hello
-          method: get
+          path: mutant
+          method: post
           cors: true
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
