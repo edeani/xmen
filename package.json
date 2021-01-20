@@ -4,7 +4,8 @@
   "description": "Test project for Mercado Libre - Mutant Gene",
   "main": "handler.js",
   "scripts": {
-    "offline": "sls offline start --skipCacheInvalidation"
+    "offline": "sls offline start --skipCacheInvalidation",
+    "test": "node mutant.js"
   },
   "repository": {
     "type": "git",
