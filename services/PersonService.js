@@ -4,6 +4,11 @@ let mysqlAccessData = require("../connection/MysqlComponent");
 
 
 module.exports.save = async(dna,mutant)=>{
+    /**
+     * La función savePerson de mysql hace lo siguiente:
+     * - Si el DNA existe no lo inserta
+     * - Caso contrario inserta el registro
+     */
     let dnaObject = await mysqlAccessData.query(`SELECT savePerson('${JSON.stringify(dna)}',${mutant}) as status FROM DUAL LIMIT 1`);
     if(dnaObject.length>0){
         if(dnaObject[0].status == 'INSERTED'){
