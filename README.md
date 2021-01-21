@@ -37,3 +37,12 @@ Los endpoints en aws son:<br />
   https://6wso52cvlg.execute-api.us-east-1.amazonaws.com/dev/stats<br />
 
 7- Hacemos los request con Postman.
+
+# Test
+Para ejecutar los tests localmente ejecutar desde la raíz: <br />
+
+$nyc --reporter=html mocha --timeout 30000
+
+El comando genera una carpeta coverage, con un index.html que muestra tanto el estado de las pruebas como el coverage en el código.
+Abrir el archivo en un navegador para revisar.
+
