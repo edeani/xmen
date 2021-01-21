@@ -28,9 +28,14 @@ provider:
     shouldStartNameWithService: true
   stage: ${opt:stage,'dev'}
   environment:
-    #connection_file: connection.${opt:stage, self:provider.stage, 'dev'}.json
-    #MYSQL_HOST: ${file(configuration/${self:provider.environment.connection_file}):host}
-    #MYSQL_USER: ${file(configuration/${self:provider.environment.connection_file}):user}
+    connection_file: connection.${opt:stage, self:provider.stage, 'dev'}.json
+    MYSQL_HOST: ${file(configuration/${self:provider.environment.connection_file}):host}
+    MYSQL_USER: ${file(configuration/${self:provider.environment.connection_file}):user}
+    MYSQL_PASSWORD: ${file(configuration/${self:provider.environment.connection_file}):password}
+    MYSQL_DATABASE: ${file(configuration/${self:provider.environment.connection_file}):database}
+    MYSQL_CONNECT_TIMEOUT: ${file(configuration/${self:provider.environment.connection_file}):connectTimeout}
+    MYSQL_ACQUIRE_TIMEOUT: ${file(configuration/${self:provider.environment.connection_file}):acquireTimeout}
+    MYSQL_TIMEOUT: ${file(configuration/${self:provider.environment.connection_file}):timeout}
 # you can overwrite defaults here
 #  stage: dev
 #  region: us-east-1
@@ -71,6 +76,14 @@ functions:
     events:
       - http:
           path: mutant
+          method: post
+          cors: true
+  stats:
+    handler: handler.stats
+    timeout: 120
+    events:
+      - http:
+          path: stats
           method: post
           cors: true
 #    The following are a few example events you can configure

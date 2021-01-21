@@ -1,13 +1,21 @@
 'use strict';
-var mutantService = require("./services/MutantService");
+/**
+ * Services
+ */
+var personService = require("./services/PersonService");
+
 
 module.exports.mutant = async (event) => {
   let requestBodyMutant = JSON.parse(event.body);
 
   let dna = requestBodyMutant.dna;
 
-  let isMutantArr = await mutantService.mutant(dna);
+  let isMutantArr = await personService.mutant(dna);
+  if(isMutantArr != undefined || isMutantArr!=null){
+    await personService.save(dna,isMutantArr[1]);
+  }
   if(isMutantArr[1]){
+    
     return {
       statusCode: 200,
       body: JSON.stringify(
@@ -29,4 +37,15 @@ module.exports.mutant = async (event) => {
   };
 
   
+
+  
+};
+
+
+module.exports.stats = async(event)=>{
+  let statsObj = await personService.calculateStats();
+  return {
+    statusCode: 200,
+    body: JSON.stringify(statsObj)
+  }
 };

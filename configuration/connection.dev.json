@@ -1,0 +1,9 @@
+{
+    "host": "mutantdb.co9fvfqsbmes.us-east-2.rds.amazonaws.com",
+    "user": "admin",
+    "password": "admin****!",
+    "database": "mutantdb",
+    "connectTimeout"  : 360000,
+    "acquireTimeout"  : 360000,
+    "timeout"         : 360000
+}

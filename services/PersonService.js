@@ -1,5 +1,43 @@
 'use strict';
 const constants = require("../configuration/constants");
+let mysqlAccessData = require("../connection/MysqlComponent");
+
+
+module.exports.save = async(dna,mutant)=>{
+    let dnaObject = await mysqlAccessData.query(`SELECT savePerson('${JSON.stringify(dna)}',${mutant}) as status FROM DUAL LIMIT 1`);
+    if(dnaObject.length>0){
+        if(dnaObject[0].status == 'INSERTED'){
+            return true;
+        }else{
+            return false;    
+        }
+    }else{
+        return false;
+    }
+    
+};
+
+
+module.exports.calculateStats = async()=>{
+    let statsObject = await mysqlAccessData.query(`SELECT  stats() as stats FROM DUAL LIMIT 1`);
+    
+    if(statsObject.length>0){
+        let statsJson = JSON.parse(statsObject[0].stats);
+
+        return {
+            count_mutant_dna:statsJson.count_mutant_dna,
+            count_human_dna:statsJson.count_human_dna,
+            ratio: statsJson.rate
+        }
+
+    }else{
+        return {
+            "message":"Error in the operation"
+        }
+
+    }
+
+};
 
 module.exports.mutant = async(dna)=>{
     let rows = dna.length;
