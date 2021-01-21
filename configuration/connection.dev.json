@@ -1,5 +1,5 @@
 {
-    "host": "mutantdb.co9fvfqsbmes.us-east-2.rds.amazonaws.com",
+    "host": "mutantdb.ckjcmcrdevyy.us-east-1.rds.amazonaws.com",
     "user": "admin",
     "password": "admin****!",
     "database": "mutantdb",
