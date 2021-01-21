@@ -6,7 +6,7 @@
   "scripts": {
     "offline": "sls offline start --skipCacheInvalidation",
     "test": "node mutant.js",
-    "mocha-test": "mocha --timeout 30000"
+    "mocha-test": "nyc --reporter=html mocha --timeout 30000"
   },
   "repository": {
     "type": "git",
