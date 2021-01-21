@@ -6,11 +6,11 @@ const fs = require('fs');
 const path = require('path');
 
 let rawdata = fs.readFileSync(path.resolve('test/test-environment.json'));
-let student = JSON.parse(rawdata);
+let configConn = JSON.parse(rawdata);
 
 
 global.config_  =  {
-    connectionDatabase:student
+    connectionDatabase:configConn
 };
 
 describe('Is mutant', function(){

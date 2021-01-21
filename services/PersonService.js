@@ -65,8 +65,9 @@ let iterateGenes = async(dna, current_row, current_col,rows,cols,isMutant)=>{
 
     /**
      * logic for search a mutant
+     * console.log("("+current_row+","+current_col+")"+dna[current_row].charAt(current_col)+"::");
      */
-    console.log("("+current_row+","+current_col+")"+dna[current_row].charAt(current_col)+"::");
+    
 
     if(await search_gene(dna,current_row,current_col,rows,cols,dna[current_row].charAt(current_col))){
         current_row=rows;
