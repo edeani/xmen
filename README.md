@@ -4,7 +4,7 @@ Proyecto para prueba de empresa
 1- Clonar proyecto
 git clone https://github.com/edeani/xmen.git <br />
 
-2- Instalamos dependencias:
+2- Instalamos dependencias desde una terminal:
 
 Instalamos las librerias localmente<br />
 $npm install
@@ -20,7 +20,7 @@ $npm i mocha chai nyc -D --global
 
 3- Usar Visual Studio Code, si no lo tienes instalarlo <br />
 4- Luego abrir el proyecto descargado <br />
-5- Para ejecutar localmente con serverles, desde la raiź del proyecto digitamos: sls offline start --skipCacheInvalidation <br />
+5- Para ejecutar localmente con serverles, desde la raiź del proyecto digitamos desde la consola: sls offline start --skipCacheInvalidation <br />
 6-Con postman creamos el request para /mutant así:<br />
     url http://localhost:3000/dev/mutant<br />
     type POST<br />
