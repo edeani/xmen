@@ -11,8 +11,10 @@ module.exports.mutant = async (event) => {
   let dna = requestBodyMutant.dna;
 
   let isMutantArr = await personService.mutant(dna);
-  if((isMutantArr != undefined || isMutantArr!=null) && isMutantArr[0]!=2){
-    await personService.save(dna,isMutantArr[1]);
+  if(isMutantArr != undefined || isMutantArr!=null){
+    if(isMutantArr[0]!=2){
+      await personService.save(dna,isMutantArr[1]);
+    }
   }
   if(isMutantArr[1]){
     
