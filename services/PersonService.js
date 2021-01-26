@@ -48,6 +48,9 @@ module.exports.mutant = async(dna)=>{
     let rows = dna.length;
     let cols = dna[0].length;
 
+
+
+
     return await iterateGenes(dna,0,0,cols,rows,false);
 };
 
@@ -61,27 +64,33 @@ module.exports.mutant = async(dna)=>{
  * @param {DNA state} isMutant 
  */
 let iterateGenes = async(dna, current_row, current_col,rows,cols,isMutant)=>{
-
+    
     if (current_col >= cols) 
         return [0,isMutant]; 
 
     if (current_row >= rows) 
         return [1,isMutant]; 
+    
+    let base = dna[current_row].charAt(current_col);
+    if(!await isValidProtein(base)){
+        current_row=rows;
+        current_col=cols;
+        isMutant=false;
+        return [2,isMutant];
+    }
 
     /**
      * logic for search a mutant
      * console.log("("+current_row+","+current_col+")"+dna[current_row].charAt(current_col)+"::");
      */
-    
-
-    if(await search_gene(dna,current_row,current_col,rows,cols,dna[current_row].charAt(current_col))){
-        current_row=rows;
-        current_col=cols;
+    if(await search_gene(dna,current_row,current_col,rows,cols,base) && await isValidProtein(base)){
+        /*current_row=rows;
+        current_col=cols;*/
         isMutant=true;
     }
 
     let arrIsMutant = await iterateGenes(dna, current_row, current_col + 1,rows,cols,isMutant);
-    if (arrIsMutant[0] == 1) {
+    if (arrIsMutant[0] == 1 || arrIsMutant[0]==2) {
         return arrIsMutant;  
     }
 
@@ -100,7 +109,7 @@ let search_gene= async(dna,i,j,rows,cols,base)=>{
         let valDir = constants.DIRECTIONS[nameDir];
         if(await canSearch(indexRow,indexCol,rows,cols,valDir)){
             while(keepSearching && await isValidPosition(indexRow,indexCol,rows,cols)){
-                if(dna[indexRow].charAt(indexCol)==base ){
+                if(dna[indexRow].charAt(indexCol)==base){
                     quantity++;
 
                     switch(valDir){
@@ -169,6 +178,9 @@ let isValidPosition= async(i,j,rows,cols)=>{
     return (i >= 0 || i <rows) || (j>=0 || j< cols);
 }
 
+let isValidProtein = async(letter)=>{
+    return constants.SECUENCE.includes(letter);
+}
 
 
 
